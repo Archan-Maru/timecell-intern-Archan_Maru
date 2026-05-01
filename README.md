@@ -1,3 +1,54 @@
+# Timecell Internship — Technical Test
+
+> **Author:** Archan Maru  
+> **Stack:** Python 3.12+ · Google Gemini API · yfinance · dotenv
+
+---
+
+## General Notes — Codebase Philosophy & Standards
+
+The entire codebase across all four tasks follows a consistent set of production-grade engineering standards. These are not afterthoughts — they were architectural decisions made from the start.
+
+### Comprehensive Docstrings
+
+Every public function in every module carries a **Google-style docstring** documenting its purpose, arguments, return values, and (where relevant) side effects. This ensures any developer can understand, maintain, or extend the code without needing to reverse-engineer intent from implementation.
+
+| Module | Functions | Docstring Coverage |
+| :--- | :---: | :---: |
+| `task_1.py` | 5 | 100% |
+| `task_2.py` | 8 | 100% |
+| `task_3.py` | 9 | 100% |
+| `task_4.py` | 12 | 100% |
+
+Each file also opens with a **module-level docstring** summarizing the task's purpose, architecture, and usage instructions — making it immediately obvious what the file does, without reading a single function.
+
+### Type Hints Throughout
+
+All function signatures use Python type annotations (`-> dict`, `-> float`, `-> str | None`, etc.). Where complex structures are reused (Task 4), **dataclasses** (`Portfolio`, `DecisionInput`, `Assumption`, `PreMortemReport`) replace raw dicts to enforce schema at the language level. This eliminates an entire class of runtime key-errors and makes IDE autocompletion reliable.
+
+### Deterministic Math vs. LLM Separation
+
+A deliberate architectural principle across Tasks 3 and 4: **the LLM never does arithmetic.** All financial calculations — crash losses, runway months, fragility scores, rupee impacts — are computed in pure Python with traceable formulas. The LLM's role is strictly limited to language tasks (assumption extraction, explanation generation, critique). This makes every number in the output auditable and reproducible.
+
+
+### How to Run
+
+```bash
+# Install dependencies
+pip install google-generativeai python-dotenv yfinance requests tabulate
+
+# Set up API key
+echo GEMINI_API_KEY=your-key-here > .env
+
+# Run any task
+python task_1.py
+python task_2.py
+python task_3.py
+python task_4.py
+```
+
+---
+
 # Task 01 — Portfolio Risk Calculator
 **Run:** `python task_1.py`
 
